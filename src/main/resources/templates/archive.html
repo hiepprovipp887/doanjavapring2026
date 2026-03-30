@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GALLERY_FOOTWEAR | Lưu trữ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-bright": "#f9f9f9",
+                "on-error-container": "#410002",
+                "on-error": "#ffffff",
+                "surface-container-low": "#f3f3f4",
+                "on-secondary-container": "#1b1c1c",
+                "inverse-on-surface": "#f0f1f1",
+                "on-primary": "#e2e2e2",
+                "tertiary-fixed-dim": "#454747",
+                "on-background": "#1a1c1c",
+                "inverse-surface": "#2f3131",
+                "on-tertiary": "#e2e2e2",
+                "surface-variant": "#e2e2e2",
+                "on-secondary-fixed-variant": "#3b3b3c",
+                "on-surface-variant": "#474747",
+                "on-tertiary-fixed": "#ffffff",
+                "error": "#ba1a1a",
+                "primary": "#000000",
+                "error-container": "#ffdad6",
+                "on-primary-fixed": "#ffffff",
+                "on-tertiary-fixed-variant": "#e2e2e2",
+                "on-surface": "#1a1c1c",
+                "surface": "#f9f9f9",
+                "secondary-fixed-dim": "#acabab",
+                "surface-container-high": "#e8e8e8",
+                "surface-container-highest": "#e2e2e2",
+                "surface-dim": "#dadada",
+                "secondary": "#5e5e5e",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-primary-container": "#ffffff",
+                "outline-variant": "#c6c6c6",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#737575",
+                "tertiary": "#3a3c3c",
+                "primary-fixed-dim": "#474747",
+                "on-primary-fixed-variant": "#e2e2e2",
+                "secondary-fixed": "#c7c6c6",
+                "surface-tint": "#5e5e5e",
+                "tertiary-fixed": "#5d5f5f",
+                "background": "#f9f9f9",
+                "secondary-container": "#d5d4d4",
+                "inverse-primary": "#c6c6c6",
+                "on-tertiary-container": "#ffffff",
+                "primary-fixed": "#5e5e5e",
+                "primary-container": "#3b3b3b",
+                "surface-container": "#eeeeee",
+                "surface-container-lowest": "#ffffff",
+                "outline": "#777777"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0rem", "lg": "0rem", "xl": "0rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+          display: inline-block;
+          line-height: 1;
+        }
+        body { background-color: #f9f9f9; color: #1a1c1c; }
+    </style>
+</head>
+
+<body class="font-body selection:bg-primary selection:text-on-primary">
+
+<!-- TopNavBar (đồng bộ với index/products/drops) -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.04)] flex justify-between items-center w-full px-8 py-6">
+    <a th:href="@{/}" class="text-xl font-bold tracking-tighter text-black">GALLERY_FOOTWEAR</a>
+
+    <div class="hidden md:flex items-center gap-12">
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors hover:opacity-70"
+           th:href="@{/}">Trang chủ</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors hover:opacity-70"
+           th:href="@{/products}">Sản phẩm</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors hover:opacity-70"
+           th:href="@{/drops}">Ra mắt</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-black border-b border-black pb-1 hover:opacity-70"
+           th:href="@{/archive}">Lưu trữ</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors hover:opacity-70"
+           th:href="@{/about}">Giới thiệu</a>
+    </div>
+
+    <div class="flex items-center gap-6">
+        <button class="text-black scale-95 active:scale-100 transition-transform" type="button" title="Tìm kiếm">
+            <span class="material-symbols-outlined">search</span>
+        </button>
+
+        <a th:href="@{/cart/view}" class="text-black scale-95 active:scale-100 transition-transform relative" title="Giỏ hàng">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span th:if="${cartCount != null and cartCount > 0}"
+                  class="absolute -top-2 -right-2 min-w-5 h-5 px-1 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+        <span th:text="${cartCount}">0</span>
+      </span>
+        </a>
+
+        <a th:if="${session.loggedInUser == null}" th:href="@{/login}" class="text-black scale-95 active:scale-100 transition-transform" title="Đăng nhập">
+            <span class="material-symbols-outlined">person</span>
+        </a>
+        <a th:if="${session.loggedInUser != null}" th:href="@{/profile}" class="text-black scale-95 active:scale-100 transition-transform" title="Tài khoản">
+            <span class="material-symbols-outlined">person</span>
+        </a>
+    </div>
+</nav>
+
+<main class="pt-32">
+
+    <!-- Hero Section: Editorial Header -->
+    <header class="px-8 mb-24 max-w-7xl mx-auto">
+        <span class="font-label text-xs uppercase tracking-[0.2em] text-outline mb-4 block">Thư viện kỹ thuật số</span>
+        <h1 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter leading-none mb-8">
+            DANH MỤC<br/>HỒI TƯỞNG
+        </h1>
+        <p class="font-body text-on-surface-variant max-w-xl leading-relaxed text-lg">
+            Hành trình tuyển chọn qua những thiết kế định hình một thời đại. Kho lưu trữ của chúng tôi bảo tồn sự giao thoa giữa đổi mới kỹ thuật và tiến hóa văn hóa.
+        </p>
+    </header>
+
+    <!-- Filters Section (UI tĩnh theo mẫu) -->
+    <section class="px-8 mb-16 max-w-7xl mx-auto border-b border-outline-variant/15 pb-8">
+        <div class="flex flex-col md:flex-row justify-between items-baseline gap-8">
+            <div class="flex gap-10 flex-wrap">
+                <button class="font-label text-[11px] uppercase tracking-widest font-bold border-b-2 border-primary pb-2" type="button">Các thời kỳ</button>
+                <button class="font-label text-[11px] uppercase tracking-widest text-outline hover:text-primary transition-colors pb-2" type="button">Nền tảng (1980-1995)</button>
+                <button class="font-label text-[11px] uppercase tracking-widest text-outline hover:text-primary transition-colors pb-2" type="button">Bước nhảy số (1996-2010)</button>
+                <button class="font-label text-[11px] uppercase tracking-widest text-outline hover:text-primary transition-colors pb-2" type="button">Lưu trữ hiện đại (2011-2024)</button>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <span class="font-label text-[10px] uppercase tracking-widest text-outline">Sắp xếp theo</span>
+                <button class="font-label text-[11px] uppercase tracking-widest flex items-center gap-2" type="button">
+                    Trình tự thời gian <span class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Gallery -->
+    <section class="px-8 max-w-7xl mx-auto mb-32">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-24 gap-x-12 relative">
+
+            <!-- Vertical Line (Timeline Visual) -->
+            <div class="hidden md:block absolute left-[5.5rem] top-0 bottom-0 w-[1px] bg-outline-variant/20 z-0"></div>
+
+            <!-- 1982 Entry -->
+            <div class="md:col-span-12 flex flex-col md:flex-row gap-8 relative z-10 group">
+                <div class="md:w-48 shrink-0 pt-2">
+                    <span class="font-headline text-5xl font-extrabold tracking-tighter text-outline-variant group-hover:text-primary transition-colors duration-500">1982</span>
+                </div>
+
+                <div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-12 bg-surface-container-low p-12">
+                    <div class="aspect-square bg-surface overflow-hidden relative">
+                        <img alt="1982" class="w-full h-full object-cover mix-blend-multiply opacity-90 hover:scale-105 transition-transform duration-700"
+                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBez5nSjBJIcPda_LJo8xIL2ONVTxV77VEKlVpi5PpXigJNOaNQ-MkT956PhnLiCBjnh9KqmYiGy9K3UrSm1XTgtyPzfxNTWM5fow1B58T7YkdroPwkTwc6aLkjNrkWy9KAvXcsH3ogk7LLtaCJgp2v6tt1soTddCOY5j1_xS9eZgz4UtPreGuADV8dyUk6qbWJCSyLPDe_ow8hnEK6i--DX9dpSV0DLkOEvbEFzHibRm13KlqTPz4tJmnY51720BbegdoQ4tHFljKJ"/>
+                    </div>
+
+                    <div class="flex flex-col justify-center">
+                        <span class="font-label text-[10px] uppercase tracking-[0.2em] text-primary mb-4 block">Kiểu dáng 01</span>
+                        <h3 class="font-headline text-3xl font-bold mb-6 tracking-tight">THE ORIGINAL COURT-MASTER</h3>
+                        <p class="font-body text-on-surface-variant leading-relaxed mb-8">
+                            Ra mắt như là mẫu giày hiệu năng đầu tiên sử dụng đế khí nén, thay đổi quỹ đạo của giày thể thao mãi mãi. Thân giày bằng da trắng nguyên khối vẫn là bản thiết kế cho sự tối giản sang trọng.
+                        </p>
+                        <a class="inline-flex items-center gap-4 font-label text-xs uppercase tracking-widest font-bold group" href="#">
+                            Xem thông số kỹ thuật
+                            <span class="w-12 h-[1px] bg-primary group-hover:w-16 transition-all duration-300"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1995 Entry -->
+            <div class="md:col-span-7 md:col-start-4 flex flex-col relative z-10 group">
+                <div class="flex items-center gap-6 mb-8">
+                    <span class="font-headline text-5xl font-extrabold tracking-tighter text-outline-variant group-hover:text-primary transition-colors duration-500">1995</span>
+                    <div class="h-[1px] flex-grow bg-outline-variant/20"></div>
+                </div>
+
+                <div class="bg-surface-container-highest p-10">
+                    <div class="aspect-[4/5] bg-surface-container mb-8 overflow-hidden">
+                        <img alt="1995" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUFq-5wfqILMGcLAR96Zl-QJWGloemlXkQX0Q2X-UfhQ67_kxjpa-BL0DFgeEiI0seP4PzGq9Kz03dbf6WDcBoVhi3gTcpSCm9jSzJHwEPXEX1qEnup8Vwc7C17s2kqKhP2oivgGeXEESdp4xzgvtkxTOT4OS_EZt5ytXkCvBUUtIQMeGeUTRBEH5mvYzgI0XsX05i_Xthq_IfEbgMf7ogxVLypdNIYlEKwIndnDxb24ZwoajHCvt4FFWpGFY1zfyzGs3ZvYxBAUX_"/>
+                    </div>
+                    <h3 class="font-headline text-2xl font-bold mb-3">AERO-FLOW 95</h3>
+                    <p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                        Đỉnh cao của sự tối đa thập niên 90. Đặc trưng với khung cấu trúc có thể nhìn thấy và phiên bản đầu tiên của hệ thống 'Dây giày phân tầng'.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2003 Entry -->
+            <div class="md:col-span-5 flex flex-col pt-24 relative z-10 group">
+                <div class="flex items-center gap-6 mb-8">
+                    <span class="font-headline text-5xl font-extrabold tracking-tighter text-outline-variant group-hover:text-primary transition-colors duration-500">2003</span>
+                </div>
+
+                <div class="bg-white p-8 shadow-[0_40px_100px_rgba(0,0,0,0.02)]">
+                    <div class="aspect-square bg-surface-container-low mb-8">
+                        <img alt="2003" class="w-full h-full object-cover"
+                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1a1FQ9kOM1GmA8VtggeX9_0HgjktBfa8fh0zsegkdQHkM86o8SQOsGR0aXGLvb4lm02wlPovDRVR9RKW2xoh2KmTuqrUqxYrMI9TgQj0hpPcBJc-cUl2j_sws6xnFYYvd6Ob5owXL6oLpv7qJvO1ZMQQifbC6X6MqKsyxpHCbcELPtjz_KRvo17DxJw98BiMGooSVKn8kdK4ziZ5cLnro2c0tZ4I_XQq9ckbOQe72LelBQ6aZuAFb-IStKM1sGuASbGB-oPl4tVje"/>
+                    </div>
+                    <h3 class="font-headline text-2xl font-bold mb-3">HYPER-STRIKE MK II</h3>
+                    <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">
+                        Sự hợp tác với các nhà thiết kế tiên phong Nhật Bản, thu hẹp khoảng cách giữa thời trang đường phố và các sàn diễn thời trang cao cấp.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Heritage Storytelling Section -->
+    <section class="bg-surface-container-low py-32 px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <div class="absolute -top-12 -left-12 w-64 h-64 bg-primary/5 -z-0"></div>
+                <img alt="Di sản" class="relative z-10 grayscale hover:grayscale-0 transition-all duration-1000 w-full h-[600px] object-cover"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPaE8ns5kn15MSomWcVq0crIJ96CQ_p6RpN3L49fJ6B2N-BD5e-ZN6GJnE0-jbQsE5F7X2q_zD8rYxeisZ_hQjmR0xBVpqxi3KvGvMfRMg4GekPsxFtJ6mGrHSPnJpqkFasKhBqCwU4Xw26xdd5D2dloyOoT1zaUt_qDsdFeTLO2djUja3ffVdJmTEZh9U9uyRFNJIH-QWe79UGWFOVrPUd-ZlzJvS3FP5r-LQM00xaL7qc32i-YExs8cAXo1Gky-4LJU8ey0CjBgi"/>
+            </div>
+
+            <div class="max-w-md">
+                <span class="font-label text-xs uppercase tracking-[0.3em] text-primary mb-8 block">Di sản thủ công</span>
+                <h2 class="font-headline text-4xl font-extrabold mb-10 leading-[1.1]">NƠI TRUYỀN THỐNG GẶP GỠ SỰ TIÊN PHONG</h2>
+                <div class="space-y-6 font-body text-on-surface-variant leading-relaxed">
+                    <p>Kho lưu trữ của chúng tôi không chỉ là một danh sách sản phẩm; đó là lịch sử thị giác về sự vận động của con người. Mỗi ��ường kim mũi chỉ trong phiên bản Master 1982 đều được đặt với một mục đích vẫn còn vang vọng trong các bản phát hành năm 2024 của chúng tôi.</p>
+                    <p>Chúng tôi duy trì một "Thư viện sống" tại trụ sở chính, nơi mọi mẫu thử nghiệm đều được bảo tồn. Điều này cho phép các nhà thiết kế hiện tại của chúng tôi thực sự chạm vào quá khứ, đảm bảo rằng di sản chất lượng của chúng tôi không bao giờ bị mất đi trong quá trình theo đuổi cái mới.</p>
+                </div>
+
+                <button class="mt-12 bg-primary text-on-primary px-10 py-5 font-label text-[11px] uppercase tracking-widest font-bold hover:bg-primary-container transition-colors"
+                        type="button">
+                    Khám phá nghệ thuật thủ công
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-40 text-center px-8">
+        <h2 class="font-headline text-4xl md:text-6xl font-extrabold mb-10 tracking-tighter">TƯƠNG LAI ĐƯỢC VIẾT TỪ QUÁ KHỨ</h2>
+        <p class="font-body text-on-surface-variant max-w-2xl mx-auto mb-16 text-lg">
+            Đăng ký nhận bản tin của chúng tôi để nhận các cập nhật độc quyền về các đợt 'Ra mắt lưu trữ' sắp tới và các phiên bản tái phát hành giới hạn.
+        </p>
+        <form class="max-w-md mx-auto flex" action="#" method="post">
+            <input class="flex-grow bg-transparent border-b border-outline py-4 focus:outline-none focus:border-primary font-label text-xs tracking-widest uppercase"
+                   placeholder="EMAIL CỦA BẠN" type="email"/>
+            <button class="border-b border-outline py-4 px-6 font-label text-xs tracking-widest font-bold uppercase hover:text-primary transition-colors" type="submit">
+                Đăng ký
+            </button>
+        </form>
+    </section>
+
+</main>
+
+<!-- Footer (giữ mẫu) -->
+<footer class="bg-neutral-50 dark:bg-neutral-950 w-full py-20 px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto">
+        <div class="md:col-span-1">
+            <div class="text-lg font-black tracking-widest mb-6">GALLERY_FOOTWEAR</div>
+            <p class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400">
+                Định nghĩa sự giao thoa giữa phong cách và lịch sử thông qua việc tuyển chọn giày dép tỉ mỉ.
+            </p>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <span class="font-label text-[11px] uppercase tracking-widest font-bold mb-2">Khám phá</span>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" th:href="@{/products}">Bộ sưu tập</a>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Chất liệu</a>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Hợp tác</a>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <span class="font-label text-[11px] uppercase tracking-widest font-bold mb-2">Pháp lý</span>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Quyền riêng tư</a>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Điều khoản</a>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Khả năng tiếp cận</a>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <span class="font-label text-[11px] uppercase tracking-widest font-bold mb-2">Kết nối</span>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Instagram</a>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bản tin</a>
+            <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Báo chí</a>
+        </div>
+    </div>
+
+    <div class="mt-20 pt-10 border-t border-outline-variant/10 text-center">
+        <p class="font-['Inter'] text-[13px] tracking-wide text-neutral-500 uppercase">© 2024 THE DIGITAL GALLERY. BẢO LƯU MỌI QUYỀN.</p>
+    </div>
+</footer>
+
+</body></html>

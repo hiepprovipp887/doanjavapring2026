@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lofi Tech | Admin - Sản phẩm</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+</head>
+<body>
+
+<!-- SIDEBAR: dùng menu mới -->
+<aside id="sidebar">
+    <a class="sidebar-brand" th:href="@{/admin/dashboard}">
+        <div class="brand-icon"><i class="bi bi-cpu-fill"></i></div>
+        <div class="brand-text">Lofi Tech <span>Admin Panel</span></div>
+    </a>
+
+    <ul class="sidebar-nav">
+        <li><div class="sidebar-label">Menu chính</div></li>
+        <li class="nav-item"><a th:href="@{/admin/dashboard}"><i class="bi bi-grid-1x2-fill"></i><span>Tổng quan</span></a></li>
+        <li class="nav-item"><a th:href="@{/admin/products}"><i class="bi bi-box-seam"></i><span>Quản lý sản phẩm</span></a></li>
+        <li class="nav-item"><a th:href="@{/admin/categories}"><i class="bi bi-tags-fill"></i><span>Quản lý danh mục</span></a></li>
+
+        <li><div class="sidebar-label">Vận hành</div></li>
+        <li class="nav-item"><a th:href="@{/admin/orders}"><i class="bi bi-cart4"></i><span>Đơn hàng</span></a></li>
+        <li class="nav-item"><a th:href="@{/admin/users}"><i class="bi bi-people-fill"></i><span>Quản lý tài khoản</span></a></li>
+
+        <li><div class="sidebar-label">Hệ thống</div></li>
+        <li class="nav-item"><a th:href="@{/logout}" class="text-danger"><i class="bi bi-box-arrow-right"></i><span>Đăng xuất</span></a></li>
+    </ul>
+</aside>
+
+<div id="main-wrapper">
+    <header id="topbar">
+        <button id="sidebarToggle" onclick="toggleSidebar()" title="Toggle Sidebar" type="button">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <!-- Search + filter category -->
+        <div class="topbar-search d-none d-sm-block">
+            <form th:action="@{/admin/products}" method="get" class="topbar-search">
+                <i class="bi bi-search"></i>
+                <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm tên sản phẩm...">
+                <input type="hidden" name="category" th:value="${category}">
+            </form>
+        </div>
+    </header>
+
+    <main id="content">
+        <div class="page-header d-flex flex-wrap align-items-start justify-content-between gap-3 anim">
+            <div>
+                <h1>Quản lý sản phẩm (Giày)</h1>
+                <div class="section-title-divider mt-1 mb-2"></div>
+            </div>
+
+            <!-- Filter category -->
+            <form class="d-flex gap-2 align-items-center" th:action="@{/admin/products}" method="get">
+                <input type="hidden" name="keyword" th:value="${keyword}">
+                <select class="form-select form-select-sm" name="category" style="width:180px">
+                    <option value="" th:selected="${category == ''}">Tất cả danh mục</option>
+                    <option value="Sneakers" th:selected="${category == 'Sneakers'}">Sneakers</option>
+                    <option value="Running" th:selected="${category == 'Running'}">Running</option>
+                    <option value="Office" th:selected="${category == 'Office'}">Office</option>
+                    <option value="Lifestyle" th:selected="${category == 'Lifestyle'}">Lifestyle</option>
+                </select>
+                <button class="btn btn-sm btn-outline-primary" type="submit">
+                    <i class="bi bi-funnel-fill me-1"></i>Lọc
+                </button>
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/products}">Reset</a>
+            </form>
+        </div>
+
+        <div class="dash-card">
+            <div class="dash-card-header">
+                <div>
+                    <h6><i class="bi bi-table me-2" style="color:var(--success)"></i>Danh sách sản phẩm</h6>
+                    <small style="font-size:.73rem;color:var(--text-muted)">Hiển thị theo danh mục + tìm kiếm</small>
+                </div>
+                <div class="d-flex gap-2">
+                    <a th:href="@{/admin/products/add}" class="btn btn-sm text-white rounded-pill px-3 d-flex align-items-center"
+                       style="background:var(--primary);font-size:.78rem">
+                        <i class="bi bi-plus-lg me-1"></i> Thêm mới
+                    </a>
+                </div>
+            </div>
+
+            <div class="dash-card-body p-0">
+                <div class="table-responsive">
+                    <table class="product-table">
+                        <thead>
+                        <tr>
+                            <th style="width:52px">Ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Mô tả</th>
+                            <th>Danh mục</th>
+                            <th>Giá bán</th>
+                            <th>Tồn kho</th>
+                            <th style="text-align:center">Hành động</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="p : ${products}">
+                            <td>
+                                <div class="product-img-wrap" style="width: 45px; height: 45px; overflow: hidden; border-radius: 8px;">
+                                    <img th:if="${p.image != null}"
+                                         th:src="@{'/images/' + ${p.image}}"
+                                         style="width: 100%; height: 100%; object-fit: cover;"
+                                         alt="Product image"/>
+                                    <i th:unless="${p.image != null}" class="bi bi-bag"></i>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="product-name" th:text="${p.name}">Tên sản phẩm</div>
+                            </td>
+
+                            <td th:text="${p.description}">Mô tả</td>
+
+                            <td>
+                <span class="badge rounded-pill bg-light text-dark border"
+                      th:text="${p.category != null ? p.category.name : 'N/A'}">Category</span>
+                            </td>
+
+                            <td>
+                                <span class="price" th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'">0 ₫</span>
+                            </td>
+
+                            <td>
+                                <span th:if="${p.quantity > 10}" class="badge-instock">Còn hàng (<span th:text="${p.quantity}"></span>)</span>
+                                <span th:if="${p.quantity <= 10 && p.quantity > 0}" class="badge-low">Sắp hết (<span th:text="${p.quantity}"></span>)</span>
+                                <span th:if="${p.quantity == 0}" class="badge-outstock">Hết hàng</span>
+                            </td>
+
+                            <td style="text-align:center">
+                                <div class="d-flex gap-1 justify-content-center">
+                                    <a th:href="@{/admin/products/edit/{id}(id=${p.id})}" class="btn-action btn-edit" title="Sửa"><i class="bi bi-pencil-fill"></i></a>
+                                    <a th:href="@{/admin/products/delete/{id}(id=${p.id})}"
+                                       class="btn-action btn-del"
+                                       onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')"
+                                       title="Xóa"><i class="bi bi-trash3-fill"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr th:if="${products == null || #lists.isEmpty(products)}">
+                            <td colspan="7" class="text-center text-muted p-4">Không có sản phẩm nào.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-4 pb-2 text-center" style="font-size:.75rem;color:var(--text-muted)">
+            © 2026 <strong style="color:var(--primary)">Lofi Tech</strong> Admin Panel
+        </footer>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/admin-dashboard.js}"></script>
+</body>
+</html>

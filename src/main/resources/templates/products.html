@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GALLERY_FOOTWEAR | Sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#f9f9f9",
+                        "on-error-container": "#410002",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f3f3f4",
+                        "on-secondary-container": "#1b1c1c",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-primary": "#e2e2e2",
+                        "tertiary-fixed-dim": "#454747",
+                        "on-background": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary": "#e2e2e2",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#3b3b3c",
+                        "on-surface-variant": "#474747",
+                        "on-tertiary-fixed": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#ffffff",
+                        "on-tertiary-fixed-variant": "#e2e2e2",
+                        "on-surface": "#1a1c1c",
+                        "surface": "#f9f9f9",
+                        "secondary-fixed-dim": "#acabab",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-dim": "#dadada",
+                        "secondary": "#5e5e5e",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-primary-container": "#ffffff",
+                        "outline-variant": "#c6c6c6",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#737575",
+                        "tertiary": "#3a3c3c",
+                        "primary-fixed-dim": "#474747",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "secondary-fixed": "#c7c6c6",
+                        "surface-tint": "#5e5e5e",
+                        "tertiary-fixed": "#5d5f5f",
+                        "background": "#f9f9f9",
+                        "secondary-container": "#d5d4d4",
+                        "inverse-primary": "#c6c6c6",
+                        "on-tertiary-container": "#ffffff",
+                        "primary-fixed": "#5e5e5e",
+                        "primary-container": "#3b3b3b",
+                        "surface-container": "#eeeeee",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#777777"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background:#f9f9f9; color:#1a1c1c; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface">
+
+<!-- TopNavBar (đồng bộ index mới + thymeleaf) -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.04)] flex justify-between items-center w-full px-8 py-6">
+    <a th:href="@{/}" class="text-xl font-bold tracking-tighter text-black">GALLERY_FOOTWEAR</a>
+
+    <div class="hidden md:flex gap-12">
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/}">Trang chủ</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/products}">Sản phẩm</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/drops}">Bộ sưu tập mới</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/archive}">Lưu trữ</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-black border-b border-black pb-1"
+           th:href="@{/about}">Giới thiệu</a>
+    </div>
+
+    <div class="flex items-center space-x-6">
+        <button class="hover:opacity-70 transition-opacity duration-300 scale-95 active:scale-100 transition-transform" type="button" title="Tìm kiếm">
+            <span class="material-symbols-outlined text-black">search</span>
+        </button>
+
+        <a th:href="@{/cart/view}" class="hover:opacity-70 transition-opacity duration-300 scale-95 active:scale-100 transition-transform relative" title="Giỏ hàng">
+            <span class="material-symbols-outlined text-black">shopping_bag</span>
+            <span th:if="${cartCount != null and cartCount > 0}"
+                  class="absolute -top-2 -right-2 min-w-5 h-5 px-1 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span th:text="${cartCount}">0</span>
+            </span>
+        </a>
+
+        <a th:if="${session.loggedInUser == null}" th:href="@{/login}" class="hover:opacity-70 transition-opacity duration-300" title="Đăng nhập">
+            <span class="material-symbols-outlined text-black">person</span>
+        </a>
+        <a th:if="${session.loggedInUser != null}" th:href="@{/profile}" class="hover:opacity-70 transition-opacity duration-300" title="Tài khoản">
+            <span class="material-symbols-outlined text-black">person</span>
+        </a>
+    </div>
+</nav>
+
+<main class="pt-32 pb-20 px-8 max-w-[1600px] mx-auto">
+
+    <!-- Header Section -->
+    <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div class="max-w-2xl">
+            <h1 class="text-[3.5rem] leading-[0.9] font-extrabold tracking-[-0.02em] uppercase mb-4">
+                Bộ sưu tập
+            </h1>
+            <p class="text-on-surface-variant font-body text-lg max-w-lg">
+                Một tuyển tập chọn lọc các phom dáng hiệu năng cao và tay nghề thủ công điêu luyện. Thiết kế tối giản kết hợp với độ chính xác kỹ thuật.
+            </p>
+
+            <form class="mt-8 flex items-center gap-3 border-b border-black/30 max-w-lg"
+                  th:action="@{/products}"
+                  method="get">
+                <!-- giữ category khi search -->
+                <input type="hidden" name="category" th:value="${category}"/>
+
+                <span class="material-symbols-outlined text-black/60">search</span>
+
+                <input class="bg-transparent border-none focus:ring-0 w-full font-label text-xs tracking-widest px-0 py-4 uppercase"
+                       name="q"
+                       th:value="${q}"
+                       placeholder="TÌM THEO TÊN SẢN PHẨM (VD: AIR, RUNNER...)"
+                       type="text"/>
+
+                <button class="font-label text-[10px] font-bold tracking-widest uppercase hover:opacity-50 transition-opacity"
+                        type="submit">
+                    Tìm
+                </button>
+
+                <a th:if="${q != null and !#strings.isEmpty(q)}"
+                   class="font-label text-[10px] font-bold tracking-widest uppercase hover:opacity-50 transition-opacity"
+                   th:href="@{/products(category=${category})}">
+                    Xóa
+                </a>
+            </form>
+
+            <div class="mt-4" th:if="${param.category != null}">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline">
+                  Đang lọc theo: <span th:text="${param.category}">Sneakers</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Sort (UI placeholder) -->
+        <div class="flex items-center gap-4">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline">Sắp xếp theo</span>
+            <div class="relative group">
+                <button class="flex items-center gap-2 pb-1 border-b border-black text-sm font-medium tracking-wide" type="button">
+                    Phát hành mới nhất
+                    <span class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+
+                <!-- ĐÃ SỬA: giữ q khi chọn category từ dropdown -->
+                <div class="absolute right-0 top-full mt-2 w-48 bg-surface-container-lowest shadow-xl p-2 hidden group-hover:block z-10">
+                    <a class="block px-4 py-2 text-xs uppercase tracking-wider hover:bg-surface-container"
+                       th:href="@{/products(q=${q})}">Tất cả</a>
+
+                    <a class="block px-4 py-2 text-xs uppercase tracking-wider hover:bg-surface-container"
+                       th:href="@{/products(category='Sneakers', q=${q})}">Sneakers</a>
+
+                    <a class="block px-4 py-2 text-xs uppercase tracking-wider hover:bg-surface-container"
+                       th:href="@{/products(category='Running', q=${q})}">Running</a>
+
+                    <a class="block px-4 py-2 text-xs uppercase tracking-wider hover:bg-surface-container"
+                       th:href="@{/products(category='Office', q=${q})}">Office</a>
+
+                    <a class="block px-4 py-2 text-xs uppercase tracking-wider hover:bg-surface-container"
+                       th:href="@{/products(category='Lifestyle', q=${q})}">Lifestyle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-16">
+
+        <!-- Sidebar Filters -->
+        <aside class="w-full md:w-64 shrink-0 space-y-12">
+
+            <!-- Category quick filter (ĐÃ SỬA: giữ q) -->
+            <section>
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline mb-6">Danh mục</h3>
+                <div class="flex flex-col gap-2">
+
+                    <a class="py-3 text-[11px] font-bold border border-outline-variant/50 hover:bg-black hover:text-white transition-all text-center"
+                       th:href="@{/products(q=${q})}">Tất cả</a>
+
+                    <a class="py-3 text-[11px] font-bold border border-outline-variant/50 hover:bg-black hover:text-white transition-all text-center"
+                       th:href="@{/products(category='Sneakers', q=${q})}">Sneakers</a>
+
+                    <a class="py-3 text-[11px] font-bold border border-outline-variant/50 hover:bg-black hover:text-white transition-all text-center"
+                       th:href="@{/products(category='Running', q=${q})}">Running</a>
+
+                    <a class="py-3 text-[11px] font-bold border border-outline-variant/50 hover:bg-black hover:text-white transition-all text-center"
+                       th:href="@{/products(category='Office', q=${q})}">Office</a>
+
+                    <a class="py-3 text-[11px] font-bold border border-outline-variant/50 hover:bg-black hover:text-white transition-all text-center"
+                       th:href="@{/products(category='Lifestyle', q=${q})}">Lifestyle</a>
+                </div>
+            </section>
+
+            <!-- Size Filter (UI placeholder) -->
+            <section>
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline mb-6">Kích cỡ / EU</h3>
+                <div class="grid grid-cols-4 gap-2">
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">38</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">39</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">40</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">41</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">42</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">43</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">44</button>
+                    <button class="py-3 text-[11px] font-medium border border-transparent bg-surface-container hover:bg-primary hover:text-on-primary transition-all" type="button">45</button>
+                </div>
+            </section>
+
+            <!-- Color Filter (UI placeholder) -->
+            <section>
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline mb-6">Màu sắc</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-full bg-black outline outline-1 outline-offset-2 outline-black"></div>
+                        <span class="text-xs uppercase tracking-wider font-medium group-hover:translate-x-1 transition-transform">Đen Onyx</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-full bg-[#f0ede5] outline outline-1 outline-offset-2 outline-transparent group-hover:outline-outline-variant"></div>
+                        <span class="text-xs uppercase tracking-wider font-medium text-neutral-500 group-hover:text-on-surface transition-colors">Trắng Ngà</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-full bg-[#3d403a] outline outline-1 outline-offset-2 outline-transparent group-hover:outline-outline-variant"></div>
+                        <span class="text-xs uppercase tracking-wider font-medium text-neutral-500 group-hover:text-on-surface transition-colors">Xanh Rừng Sage</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Price Filter (UI placeholder) -->
+            <section>
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline mb-6">Khoảng giá</h3>
+                <div class="relative h-1 bg-surface-container">
+                    <div class="absolute h-full bg-black w-2/3 left-0"></div>
+                    <div class="absolute -top-1.5 left-0 w-4 h-4 bg-black"></div>
+                    <div class="absolute -top-1.5 left-2/3 w-4 h-4 bg-black"></div>
+                </div>
+                <div class="flex justify-between mt-4 text-[11px] font-bold uppercase tracking-widest">
+                    <span>180.000đ</span>
+                    <span>450.000đ</span>
+                </div>
+            </section>
+
+            <!-- Mini Banner -->
+            <section class="p-6 bg-primary text-on-primary hidden md:block">
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-4 opacity-60">Tiêu chuẩn Gallery</p>
+                <h4 class="text-lg font-bold leading-tight mb-4">Chế tác Trung hòa Carbon</h4>
+                <p class="text-xs font-light leading-relaxed opacity-80">
+                    Mọi phom dáng trong bộ sưu tập của chúng tôi đều được chế tác từ da không rác thải và năng lượng tái tạo.
+                </p>
+            </section>
+        </aside>
+
+        <!-- Product Grid (DYNAMIC) -->
+        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
+
+            <article th:each="p : ${products}" class="group">
+                <div class="relative aspect-[4/5] bg-surface-container overflow-hidden mb-6">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                         th:src="@{'/images/' + ${p.image}}"
+                         th:alt="${p.name}"/>
+
+                    <div class="absolute top-4 right-4 bg-surface-container-lowest px-3 py-1 text-[10px] font-bold uppercase tracking-widest"
+                         th:text="${p.category != null ? p.category.name : 'Mới'}">Mới</div>
+
+                    <a th:href="@{'/product/' + ${p.id}}"
+                       class="absolute inset-0"
+                       aria-label="Xem chi tiết"></a>
+
+                    <a th:href="@{'/product/' + ${p.id}}"
+                       class="absolute bottom-0 left-0 w-full bg-primary text-on-primary py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold text-xs uppercase tracking-[0.2em] text-center">
+                        Xem chi tiết
+                    </a>
+                </div>
+
+                <div class="flex justify-between items-start gap-4">
+                    <div class="min-w-0">
+                        <h3 class="text-sm font-bold uppercase tracking-wider mb-1 truncate" th:text="${p.name}">TÊN SẢN PHẨM</h3>
+                        <p class="text-[11px] text-outline uppercase tracking-widest"
+                           th:text="${p.category != null ? p.category.name : 'Bộ sưu tập'}">
+                            Bộ sưu tập
+                        </p>
+                    </div>
+
+                    <span class="text-sm font-medium whitespace-nowrap"
+                          th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'">
+                        0 ₫
+                    </span>
+                </div>
+            </article>
+
+            <div th:if="${products == null or #lists.isEmpty(products)}" class="col-span-full">
+                <div class="bg-surface-container-low p-8 border border-outline-variant/40">
+                    <p class="font-body text-sm text-on-surface-variant">
+                        Không có sản phẩm phù hợp. Hãy thử chọn danh mục khác.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Pagination (placeholder) -->
+    <div class="mt-24 pt-12 border-t border-surface-container flex items-center justify-between">
+        <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-outline"
+              th:text="'Đang hiển thị ' + (${products != null ? #lists.size(products) : 0}) + ' sản phẩm'">
+            Đang hiển thị 0 sản phẩm
+        </span>
+        <div class="flex gap-4">
+            <button class="w-12 h-12 flex items-center justify-center bg-surface-container hover:bg-black hover:text-white transition-all" type="button">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="px-6 h-12 flex items-center justify-center bg-black text-white text-xs font-bold uppercase tracking-widest" type="button">
+                Trang kế tiếp
+            </button>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer (giống index mẫu) -->
+<footer class="bg-neutral-50 dark:bg-neutral-950 w-full py-20 px-8 no-border pt-20">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto">
+        <div class="space-y-6">
+            <div class="text-lg font-black tracking-widest text-black dark:text-white">GALLERY_FOOTWEAR</div>
+            <p class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400">
+                Định hình tương lai của giày dép từ năm 2024. Tập trung vào sự giao thoa giữa tay nghề thủ công và thiết kế hiệu năng cao.
+            </p>
+        </div>
+
+        <div class="space-y-4">
+            <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-black dark:text-white">Liên kết</h4>
+            <div class="flex flex-col space-y-2">
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bản tin</a>
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Instagram</a>
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bảo mật</a>
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Điều khoản</a>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-black dark:text-white">Hỗ trợ</h4>
+            <div class="flex flex-col space-y-2">
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Vận chuyển &amp; Trả hàng</a>
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Hướng dẫn chọn size</a>
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bền vững</a>
+                <a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Liên hệ</a>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-black dark:text-white">Cập nhật thông tin</h4>
+            <div class="flex">
+                <input class="bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 w-full text-[11px] focus:outline-none focus:border-black dark:focus:border-white transition-colors"
+                       placeholder="EMAIL CỦA BẠN" type="email"/>
+                <button class="pb-1 border-b border-neutral-300 dark:border-neutral-700" type="button">
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-neutral-200 dark:border-neutral-800 flex justify-between items-center">
+        <span class="font-['Inter'] text-[11px] tracking-widest text-neutral-400 uppercase">© 2024 THE DIGITAL GALLERY. BẢO LƯU MỌI QUYỀN.</span>
+        <div class="flex gap-4">
+            <span class="material-symbols-outlined text-neutral-400">payments</span>
+            <span class="material-symbols-outlined text-neutral-400">lock</span>
+        </div>
+    </div>
+</footer>
+
+</body></html>

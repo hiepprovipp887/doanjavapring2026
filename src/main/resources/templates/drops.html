@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GALLERY_FOOTWEAR | Drops</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-bright": "#f9f9f9",
+                "on-error-container": "#410002",
+                "on-error": "#ffffff",
+                "surface-container-low": "#f3f3f4",
+                "on-secondary-container": "#1b1c1c",
+                "inverse-on-surface": "#f0f1f1",
+                "on-primary": "#e2e2e2",
+                "tertiary-fixed-dim": "#454747",
+                "on-background": "#1a1c1c",
+                "inverse-surface": "#2f3131",
+                "on-tertiary": "#e2e2e2",
+                "surface-variant": "#e2e2e2",
+                "on-secondary-fixed-variant": "#3b3b3c",
+                "on-surface-variant": "#474747",
+                "on-tertiary-fixed": "#ffffff",
+                "error": "#ba1a1a",
+                "primary": "#000000",
+                "error-container": "#ffdad6",
+                "on-primary-fixed": "#ffffff",
+                "on-tertiary-fixed-variant": "#e2e2e2",
+                "on-surface": "#1a1c1c",
+                "surface": "#f9f9f9",
+                "secondary-fixed-dim": "#acabab",
+                "surface-container-high": "#e8e8e8",
+                "surface-container-highest": "#e2e2e2",
+                "surface-dim": "#dadada",
+                "secondary": "#5e5e5e",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-primary-container": "#ffffff",
+                "outline-variant": "#c6c6c6",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#737575",
+                "tertiary": "#3a3c3c",
+                "primary-fixed-dim": "#474747",
+                "on-primary-fixed-variant": "#e2e2e2",
+                "secondary-fixed": "#c7c6c6",
+                "surface-tint": "#5e5e5e",
+                "tertiary-fixed": "#5d5f5f",
+                "background": "#f9f9f9",
+                "secondary-container": "#d5d4d4",
+                "inverse-primary": "#c6c6c6",
+                "on-tertiary-container": "#ffffff",
+                "primary-fixed": "#5e5e5e",
+                "primary-container": "#3b3b3b",
+                "surface-container": "#eeeeee",
+                "surface-container-lowest": "#ffffff",
+                "outline": "#777777"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          font-size: 20px;
+          display: inline-block;
+          line-height: 1;
+        }
+        body {
+          background-color: #f9f9f9;
+          color: #1a1c1c;
+          font-family: 'Inter', sans-serif;
+          overflow-x: hidden;
+        }
+        .editorial-grid {
+          display: grid;
+          grid-template-columns: repeat(12, 1fr);
+          gap: 1.5rem;
+        }
+        .glass-nav {
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(20px);
+        }
+        .sharp-edge {
+          border-radius: 0px !important;
+        }
+    </style>
+</head>
+
+<body class="bg-surface">
+
+<!-- TopNavBar (đồng bộ với index/products) -->
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-[0_20px_80px_rgba(0,0,0,0.04)]">
+    <div class="flex justify-between items-center w-full px-8 py-6">
+        <a th:href="@{/}" class="text-xl font-bold tracking-tighter text-black">GALLERY_FOOTWEAR</a>
+
+        <div class="hidden md:flex gap-12">
+            <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+               th:href="@{/}">Trang chủ</a>
+
+            <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+               th:href="@{/products}">Sản phẩm</a>
+
+            <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+               th:href="@{/drops}">Bộ sưu tập mới</a>
+
+            <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+               th:href="@{/archive}">Lưu trữ</a>
+
+            <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-black border-b border-black pb-1"
+               th:href="@{/about}">Giới thiệu</a>
+        </div>
+
+        <div class="flex items-center space-x-6">
+            <button class="hover:opacity-70 transition-opacity duration-300" type="button" title="Tìm kiếm">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+
+            <a th:href="@{/cart/view}" class="hover:opacity-70 transition-opacity duration-300 relative" title="Giỏ hàng">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span th:if="${cartCount != null and cartCount > 0}"
+                      class="absolute -top-2 -right-2 min-w-5 h-5 px-1 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          <span th:text="${cartCount}">0</span>
+        </span>
+            </a>
+
+            <a th:if="${session.loggedInUser == null}" th:href="@{/login}" class="hover:opacity-70 transition-opacity duration-300" title="Đăng nhập">
+                <span class="material-symbols-outlined">person</span>
+            </a>
+            <a th:if="${session.loggedInUser != null}" th:href="@{/profile}" class="hover:opacity-70 transition-opacity duration-300" title="Tài khoản">
+                <span class="material-symbols-outlined">person</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-24">
+
+    <!-- Hero Section: Coming Soon & Countdown -->
+    <section class="relative h-[921px] w-full flex items-center overflow-hidden bg-surface-container-lowest">
+        <div class="editorial-grid w-full px-8 md:px-16 z-10">
+            <div class="col-span-12 md:col-span-5 flex flex-col justify-center space-y-8">
+                <div>
+                    <span class="font-['Inter'] text-[13px] tracking-[0.2em] font-semibold text-primary uppercase mb-4 block">Phiên bản giới hạn</span>
+                    <h1 class="font-['Manrope'] text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight text-black">
+                        AERO <br/> KINETIC
+                    </h1>
+                </div>
+
+                <div class="flex space-x-8">
+                    <div class="flex flex-col">
+                        <span class="font-['Manrope'] text-4xl font-bold text-black">02</span>
+                        <span class="font-['Inter'] text-[10px] uppercase tracking-widest text-outline">Ngày</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-['Manrope'] text-4xl font-bold text-black">14</span>
+                        <span class="font-['Inter'] text-[10px] uppercase tracking-widest text-outline">Giờ</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-['Manrope'] text-4xl font-bold text-black">38</span>
+                        <span class="font-['Inter'] text-[10px] uppercase tracking-widest text-outline">Phút</span>
+                    </div>
+                </div>
+
+                <p class="font-['Inter'] text-on-surface-variant max-w-sm leading-relaxed">
+                    Được thiết kế cho những người tiên phong. Sở hữu đế giày dệt carbon phản lực và lưới 'Vortex' siêu thoáng khí.
+                </p>
+
+                <button class="w-fit bg-primary text-on-primary px-12 py-5 font-['Manrope'] font-bold uppercase tracking-widest text-xs hover:opacity-90 transition-all sharp-edge"
+                        type="button">
+                    Nhắc tôi
+                </button>
+            </div>
+        </div>
+
+        <div class="absolute right-0 top-0 w-2/3 h-full overflow-hidden">
+            <img class="w-full h-full object-cover transform translate-x-20 scale-110"
+                 data-alt="Macro side profile of a futuristic white sneaker with neon green accents sitting on a reflective grey surface with clean studio lighting"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHeXmEVlw8C1dwHHdTXG8H2urABiKrVSoINJqgG81djU76Y9LJD8ZFE9RqSisEJsVSfzx_VxEEyvejgmkf5rqMJ26AN54VeQhSz-ipb-cqlgyux16EqYcH6cHUntunsQ-OPykPGjhFRNQQ8f10mkIqiZq9T1ZGaHxa4yzbBx3gO4YE1ip_GyKckXiXrn8ZrGU9Sf6G8p8oKGlklGnRto88D4VS6TYjOTcyJO4YwmDFiBBum1xtTq7FVjHsY5cRem_NAigQe7XnYtVk"/>
+            <div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-transparent to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Upcoming Drops Grid -->
+    <section class="py-32 px-8 md:px-16 bg-surface-container-low">
+        <div class="flex justify-between items-end mb-20">
+            <div>
+                <h2 class="font-['Manrope'] text-4xl font-bold tracking-tight text-black">SẢN PHẨM SẮP RA MẮT</h2>
+                <p class="font-['Inter'] text-outline mt-2 tracking-wide uppercase text-xs">Đặt thông báo cho đợt phát hành tiếp theo</p>
+            </div>
+            <div class="hidden md:block h-[1px] bg-outline-variant/30 flex-grow mx-12 mb-4"></div>
+            <span class="font-['Manrope'] text-sm font-bold tracking-widest text-primary">LỊCH QUÝ 4</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Drop Item 1 -->
+            <div class="group">
+                <div class="relative aspect-[4/5] bg-surface-container-lowest mb-6 overflow-hidden">
+                    <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                         data-alt="Minimalist product shot of a beige high-top leather sneaker against a clean grey background with soft shadows"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuATp8ul5EfjAVLh88YYlzVkqdJAl24U4oIhe4cmg2bg4IR5ieCbYq-gnbHTm7flneKUQwrNFFb_Jsj5QApEUKmHS9tVnrkfxDoIlug1y6zRx3vL8Xy-uIpTDfpXp40r3El0XdMyHRxp6FpyOv5XWXxHHbTbR-aVjzk9um8gYWI7sFNSr0ysQ_CUFQTCZnZeHCHP3jp98vQGYXdcf_kpX1VUqNX8w3Dl4I2k19UFpjyUskgmg_0KfX4H-mYLRzCR04TI-Xn_f5mKO6T7"/>
+                    <div class="absolute top-6 left-6 bg-black text-white px-4 py-2 font-['Inter'] text-[10px] font-bold tracking-[0.2em] uppercase">
+                        12 Th11
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-['Manrope'] text-xl font-bold text-black mb-1">TERRAFORM 01</h3>
+                        <p class="font-['Inter'] text-sm text-outline">Hoang mạc / Trắng xương</p>
+                    </div>
+                    <button class="border border-black/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors duration-300"
+                            type="button">
+                        Thông báo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drop Item 2 -->
+            <div class="group">
+                <div class="relative aspect-[4/5] bg-surface-container-lowest mb-6 overflow-hidden">
+                    <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                         data-alt="Vibrant white and purple running shoe displayed vertically against a stark white backdrop with high-end editorial lighting"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrzNybVr2aiMLjkFWCIHSGSToJ2FK-dkXUmmpILHiy_CxNzo43he9dIHnXjjBz1haqm1w480kygDC8ATVFzHcN5q3I2LzlRvGFV4mCP0puzfhNNDSlVX4YRtYuAfkZSHNuRQbBlYR4YrunxbMhHsMfoerYliOSoXw8wxsMxjBzH_V8n0ev2rLJ2OgGita1qCG6MI8jnSGghgB3H1ko8RBUrf-jSDccr5MwZBiuhu8FlUQXIfGKebpAlHPiWE9gWIM3pQX2glJzA-U3"/>
+                    <div class="absolute top-6 left-6 bg-black text-white px-4 py-2 font-['Inter'] text-[10px] font-bold tracking-[0.2em] uppercase">
+                        18 Th11
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-['Manrope'] text-xl font-bold text-black mb-1">VORTEX RUNNER</h3>
+                        <p class="font-['Inter'] text-sm text-outline">Neon / Tím rực</p>
+                    </div>
+                    <button class="border border-black/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors duration-300"
+                            type="button">
+                        Thông báo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drop Item 3 -->
+            <div class="group">
+                <div class="relative aspect-[4/5] bg-surface-container-lowest mb-6 overflow-hidden">
+                    <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                         data-alt="Sleek black techwear inspired sneaker with thick sole and technical hardware details in a minimalist studio setting"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcGsjwQMDfMVVlUZeRfPy3z7qAwK8rGHI0o022EpO1O4rtWuYB5m0IIGv1VIntWkhRuPXOq3-lYo_dNFQxO_agCOHfOzftXj-r1N7MdpsnzPg8sRs1XBjMEDy4sxl8G99Tv6MxuPfKTwrMrOsxY0BoYTV7lSPAeUxo6AZjm8TZDpF9zNPcg4v-QOKFNuPFIFWoP6yoksRL_QmDFhREuWEfMieYO50q5Qpv0bu0YZP2bjzBBonxOJB5u1kCQPczPUbYauvUej8W-3Ua"/>
+                    <div class="absolute top-6 left-6 bg-black text-white px-4 py-2 font-['Inter'] text-[10px] font-bold tracking-[0.2em] uppercase">
+                        04 Th12
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-['Manrope'] text-xl font-bold text-black mb-1">OBSIDIAN TECH</h3>
+                        <p class="font-['Inter'] text-sm text-outline">Đen nhám / Than chì</p>
+                    </div>
+                    <button class="border border-black/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors duration-300"
+                            type="button">
+                        Thông báo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Drops Gallery (Asymmetric Bento Grid) -->
+    <section class="py-32 px-8 md:px-16 bg-surface">
+        <div class="text-center mb-24">
+            <span class="font-['Inter'] text-[11px] font-bold text-outline tracking-[0.3em] uppercase mb-4 block">Lưu trữ</span>
+            <h2 class="font-['Manrope'] text-5xl font-black tracking-tighter text-black uppercase">Các đợt Drops đã qua</h2>
+        </div>
+
+        <div class="editorial-grid">
+            <div class="col-span-12 md:col-span-8 h-[600px] bg-surface-container relative overflow-hidden group">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                     data-alt="Wide angle shot of classic white leather sneakers arranged artistically on a concrete floor with natural sunlight and long shadows"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzfTP1Rz2L2GvpKnMnVTmWX1CFVhzshawCtfbRrr5UhQu2hcKkJ25bm40W8FvUT5XDd-QOSYsOZ-pZFXo4luwZtelMDrGb05XkZrKKtV_T5rkAOu8euM6jhf2rjAqZG_rQsvsbdLhegwFvDntImhyKsi08SE8vIdF1Ykxv3Zpv1SZdUwnCUCAnPGJ87zaUMGCDtT4gXpYnj28peAl5-AjaEs5wg1cUHVLsfYt5xsBxVeHZNzNrJ1PJw4w6gdebHxEjFRi_lhTs14e0"/>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <div class="text-white text-center">
+                        <span class="font-['Manrope'] text-3xl font-bold uppercase italic">Hết hàng</span>
+                        <p class="font-['Inter'] text-sm tracking-widest mt-2">ESSENTIAL 01</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-12 md:col-span-4 h-[600px] flex flex-col space-y-6">
+                <div class="h-1/2 bg-surface-container relative overflow-hidden group">
+                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                         data-alt="Dynamic shot of a bright red athletic shoe against a black background with dramatic red lighting effects"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJhaWGoPsuLR9jsWqm_hrHj_vXJ0uK76-mq_rtCk-3KrSd5L3ZabZaf_3jP0JRcpOsfiRFCyctXJFSCoH1wtpTYtE_kDbPkG87OPE_qJ_OTfhRlCsjgo9ySrMea51PtDGKSxvJsSs8ZdynIDOMMjkiDKy8iyGx6djZ0rGMpVY-DQFC5NaMqkHXTcPRFvm5KU4mwzbCEyG6ay5TDoKJMENd_lyOU3cugCFRDL25-l-dp0S9AopAyY-fg6bHcky8QDhXRirQMTHcABQl"/>
+                    <div class="absolute top-4 right-4 text-white font-black text-xs opacity-50 uppercase">Hết hàng</div>
+                </div>
+
+                <div class="h-1/2 bg-surface-container relative overflow-hidden group">
+                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                         data-alt="Close up of a classic yellow and black casual sneaker against a soft neutral background"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn4cpWARLK8Q3beJg-q5Ra98Xo6mUCN9UA1FwuG9A1kUAw6kQe9qDHRK91udSC0uHcPmKOznAErxHF4PFsHBWXrKsQLso30XkIRNtN5rUPBFbViEPjGupn2995IpSOoXJx8a51zKskhWScNpkHjRz6K6WtiJb45VaSCFAX4tmaTc7hM4vtkN0Yg9Hp7qdR24y_tyPscpCNL74hGX4anYikeKGzMjNBOsBrmf2lXKo2v-T1F2qECydHU9_jVWDNJ5N0gJjypXTC8YOS"/>
+                    <div class="absolute top-4 right-4 text-white font-black text-xs opacity-50 uppercase">Hết hàng</div>
+                </div>
+            </div>
+
+            <div class="col-span-12 md:col-span-4 h-[400px] bg-surface-container relative overflow-hidden group">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                     data-alt="Flat lay of a pair of earth-toned designer sneakers on a textured stone surface with minimalist styling"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3JkwPt0ixJJ5x8b_bMA2jzxfKyzMUqO_ISDl54pR7wjzT2OCiU2ejK36rTEjHL7G3QiCqepQYycoL_YXiSjM9Jw1RaxBLsOvo29B0OhPiWuYja9SFIxFbH_wXW9XniMisLxklr5FRjpUhoHS2lajrf83WGIcQXgF1Q45KqXtHb_xXuDfZgMtMEh8gyZXyDKZW6N4xSq7ltRqt4nYNkri-bt9fcba1yQpFSEX_dYTIO22alXAfM9FR3o9-EWsq3-bH-nVJkm8rgj6D"/>
+                <div class="absolute top-4 right-4 text-white font-black text-xs opacity-50 uppercase">Hết hàng</div>
+            </div>
+
+            <div class="col-span-12 md:col-span-8 h-[400px] bg-surface-container relative overflow-hidden group">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                     data-alt="Editorial lifestyle shot of a high-end white sneaker worn by a model in a modern architectural setting with glass and steel"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeQ8Xf5qn4zNNI4V0kX0s7B6ZxggBx93VPJdfpHqc8U1yanczhTk-x415EFeR9k3F790sKUzY-utQTLs_sf5v7N27PEBKhdHOktqwm-8MKseBzEElODoWDeM2JyB2XqwqxkCNRB0UyXXB9LgHnxFYaoEp-58zVu6BinTwpuaM6kPlepL9MYeaJO2unW-EbMXCFdFhVDXtU2qNR4KsZmz9n78PxV-0VnnoV3pRp5ofQyf7GdaNF56RhGCfD2w_KjhAPZsc6MPCVPIqj"/>
+                <div class="absolute top-4 right-4 text-white font-black text-xs opacity-50 uppercase">Hết hàng</div>
+            </div>
+        </div>
+
+        <div class="mt-20 text-center">
+            <a th:href="@{/archive}"
+               class="font-['Manrope'] text-sm font-bold tracking-[0.2em] uppercase border-b-2 border-primary pb-2 hover:opacity-50 transition-all inline-block">
+                Xem toàn bộ kho lưu trữ
+            </a>
+        </div>
+    </section>
+
+    <!-- Newsletter Subscription Section (Minimalist) -->
+    <section class="py-24 px-8 bg-surface-container-highest flex flex-col items-center justify-center text-center">
+        <h3 class="font-['Manrope'] text-3xl font-bold text-black mb-4 uppercase">Không bao giờ bỏ lỡ đợt drop nào.</h3>
+        <p class="font-['Inter'] text-on-surface-variant max-w-lg mb-12">
+            Tham gia danh sách ưu tiên để được tiếp cận sớm và nhận các sản phẩm độc quyền dành riêng cho thành viên.
+        </p>
+        <form class="flex w-full max-w-md border-b border-black" action="#" method="post">
+            <input class="flex-grow bg-transparent border-none focus:ring-0 font-['Inter'] text-[12px] py-4 placeholder:text-outline/50"
+                   placeholder="ĐỊA CHỈ EMAIL CỦA BẠN" type="email"/>
+            <button class="font-['Manrope'] font-bold text-[11px] uppercase tracking-widest hover:opacity-60 transition-opacity" type="submit">
+                Đăng ký
+            </button>
+        </form>
+    </section>
+
+</main>
+
+<!-- Footer (giữ mẫu, sửa link thật) -->
+<footer class="bg-neutral-50 dark:bg-neutral-950 w-full py-20 px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto">
+        <div class="col-span-1 md:col-span-1">
+            <div class="text-lg font-black tracking-widest text-black dark:text-white uppercase mb-6">GALLERY</div>
+            <p class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 dark:text-neutral-400 max-w-xs leading-relaxed">
+                Điểm đến kỹ thuật số cho các tạo tác giày dép được tuyển chọn. Nơi hình thức gặp gỡ chức năng trong sự tĩnh lặng tuyệt đối.
+            </p>
+        </div>
+
+        <div class="col-span-1">
+            <h4 class="font-['Manrope'] text-[11px] font-bold uppercase tracking-[0.2em] text-black mb-6">Khám phá</h4>
+            <ul class="space-y-4">
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" th:href="@{/products}">Sản phẩm</a></li>
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" th:href="@{/drops}">Sắp ra mắt</a></li>
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" th:href="@{/archive}">Lưu trữ</a></li>
+            </ul>
+        </div>
+
+        <div class="col-span-1">
+            <h4 class="font-['Manrope'] text-[11px] font-bold uppercase tracking-[0.2em] text-black mb-6">Mạng xã hội</h4>
+            <ul class="space-y-4">
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Instagram</a></li>
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Twitter</a></li>
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Discord</a></li>
+            </ul>
+        </div>
+
+        <div class="col-span-1">
+            <h4 class="font-['Manrope'] text-[11px] font-bold uppercase tracking-[0.2em] text-black mb-6">Hỗ trợ</h4>
+            <ul class="space-y-4">
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Giao hàng</a></li>
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Quyền riêng tư</a></li>
+                <li><a class="font-['Inter'] text-[13px] tracking-wide text-neutral-600 hover:underline decoration-1 underline-offset-4 transition-all" href="#">Điều khoản</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-neutral-200/50">
+        <p class="font-['Inter'] text-[10px] tracking-widest text-neutral-400 uppercase text-center">
+            © 2024 THE DIGITAL GALLERY. BẢO LƯU MỌI QUYỀN.
+        </p>
+    </div>
+</footer>
+
+</body></html>

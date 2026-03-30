@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GALLERY_FOOTWEAR | Giới thiệu</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-bright": "#f9f9f9",
+                "on-error-container": "#410002",
+                "on-error": "#ffffff",
+                "surface-container-low": "#f3f3f4",
+                "on-secondary-container": "#1b1c1c",
+                "inverse-on-surface": "#f0f1f1",
+                "on-primary": "#e2e2e2",
+                "tertiary-fixed-dim": "#454747",
+                "on-background": "#1a1c1c",
+                "inverse-surface": "#2f3131",
+                "on-tertiary": "#e2e2e2",
+                "surface-variant": "#e2e2e2",
+                "on-secondary-fixed-variant": "#3b3b3c",
+                "on-surface-variant": "#474747",
+                "on-tertiary-fixed": "#ffffff",
+                "error": "#ba1a1a",
+                "primary": "#000000",
+                "error-container": "#ffdad6",
+                "on-primary-fixed": "#ffffff",
+                "on-tertiary-fixed-variant": "#e2e2e2",
+                "on-surface": "#1a1c1c",
+                "surface": "#f9f9f9",
+                "secondary-fixed-dim": "#acabab",
+                "surface-container-high": "#e8e8e8",
+                "surface-container-highest": "#e2e2e2",
+                "surface-dim": "#dadada",
+                "secondary": "#5e5e5e",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-primary-container": "#ffffff",
+                "outline-variant": "#c6c6c6",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#737575",
+                "tertiary": "#3a3c3c",
+                "primary-fixed-dim": "#474747",
+                "on-primary-fixed-variant": "#e2e2e2",
+                "secondary-fixed": "#c7c6c6",
+                "surface-tint": "#5e5e5e",
+                "tertiary-fixed": "#5d5f5f",
+                "background": "#f9f9f9",
+                "secondary-container": "#d5d4d4",
+                "inverse-primary": "#c6c6c6",
+                "on-tertiary-container": "#ffffff",
+                "primary-fixed": "#5e5e5e",
+                "primary-container": "#3b3b3b",
+                "surface-container": "#eeeeee",
+                "surface-container-lowest": "#ffffff",
+                "outline": "#777777"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          display: inline-block;
+          line-height: 1;
+        }
+        body {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+
+<!-- Top Navigation (đồng bộ toàn site) -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.04)] flex justify-between items-center px-8 py-6">
+    <a th:href="@{/}" class="text-xl font-bold tracking-tighter text-black">GALLERY_FOOTWEAR</a>
+
+    <div class="hidden md:flex gap-12">
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/}">Trang chủ</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/products}">Sản phẩm</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/drops}">Bộ sưu tập mới</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-neutral-500 hover:text-black transition-colors"
+           th:href="@{/archive}">Lưu trữ</a>
+
+        <a class="font-['Manrope'] uppercase tracking-[0.1em] text-[12px] font-medium text-black border-b border-black pb-1"
+           th:href="@{/about}">Giới thiệu</a>
+    </div>
+
+    <div class="flex items-center gap-6">
+        <button class="text-black cursor-pointer hover:opacity-70 transition-opacity" type="button" title="Tìm kiếm">
+            <span class="material-symbols-outlined">search</span>
+        </button>
+
+        <a th:href="@{/cart/view}" class="text-black cursor-pointer hover:opacity-70 transition-opacity relative" title="Giỏ hàng">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span th:if="${cartCount != null and cartCount > 0}"
+                  class="absolute -top-2 -right-2 min-w-5 h-5 px-1 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+        <span th:text="${cartCount}">0</span>
+      </span>
+        </a>
+
+        <a th:if="${session.loggedInUser == null}" th:href="@{/login}" class="text-black cursor-pointer hover:opacity-70 transition-opacity" title="Đăng nhập">
+            <span class="material-symbols-outlined">person</span>
+        </a>
+        <a th:if="${session.loggedInUser != null}" th:href="@{/profile}" class="text-black cursor-pointer hover:opacity-70 transition-opacity" title="Tài khoản">
+            <span class="material-symbols-outlined">person</span>
+        </a>
+    </div>
+</nav>
+
+<main class="pt-32">
+
+    <!-- Hero Section -->
+    <section class="px-8 mb-40">
+        <div class="max-w-7xl mx-auto">
+            <span class="font-label uppercase tracking-[0.1em] text-[12px] font-medium text-primary mb-6 block">Tầm nhìn của chúng tôi</span>
+            <h1 class="font-headline text-[3.5rem] md:text-[6rem] leading-[0.9] font-extrabold tracking-[-0.04em] mb-12 max-w-4xl">
+                ĐỊNH NGHĨA LẠI <br/> KHO LƯU TRỮ HIỆN ĐẠI.
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-end">
+                <p class="font-body text-xl text-on-surface-variant leading-relaxed">
+                    Chúng tôi tin rằng giày dép là nền tảng của bản sắc. Không chỉ là một vật dụng, mà là một tác phẩm được tuyển chọn, cân bằng giữa hình khối thô mộc và độ chính xác về giải phẫu.
+                </p>
+                <div class="h-[1px] bg-outline-variant/15 w-full hidden md:block mb-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Bento Grid -->
+    <section class="bg-surface-container-low py-32 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-12 gap-6">
+
+                <div class="col-span-12 md:col-span-8 aspect-[16/9] overflow-hidden bg-neutral-200">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                         data-alt="Minimalist bright footwear design studio"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrL-tp7hL6wH1pTnQ0acY3w_4x15LBjgvX-oGP-7mOBPTBmGxSP_98woHc68YB4w1e9tT1EX4qtSb22nKyvcoRbN_la6BMWrmNeaLX0HkrF9JYWeN14b-V_RmnD4ebXAdeT5u-T5HuigUtBk_hpTU1b5aAvKAFVh5cSafaLcFMxMIMmNh4gLQ9SvbnSVoig-wuc5vBcKR3FV9D2j6folYpHP8muhC4Q_0Ou5dH7DbQ1U3w8J9g1rc6bdHFdM50ruOSovfXyV3uVyKT"/>
+                </div>
+
+                <div class="col-span-12 md:col-span-4 aspect-square md:aspect-auto overflow-hidden bg-neutral-300">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                         data-alt="Close-up leather texture"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHKqv28zB74rZte5Rq35rOIC5EHVazoRLa3NGRhH5fIHq_QhvPVo8hCKeN1AWJasDRMhejvok3pT_MIVclYgHtCwfpfEOzMzd9INQ1mPA5ChU14WfxIkCveofb7OjGuxZwxqaKZMyrgW9OKLOXJG59ZbcI-fNGWXhUXBnH6SZWkmWS5Zi6cdYvUMA8_HWeMY5Ph4KDj-OpqbNj7T8O6Emfy6fxA02ETSonfklcxK-EtGXuSj0_sBdsFLLpkcj21FGseH60mNx_OksC"/>
+                </div>
+
+                <div class="col-span-12 md:col-span-4 aspect-square overflow-hidden bg-neutral-400">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                         data-alt="Hands stitching sneaker"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiud2-pLysjPFJhIQxeaE9Zbw3AKIy83e6blz-KFiDEAwk1dCiLA3hDVRYHJoT76frR3DYp-w99odaRLAA4JbnqFwwlIwraQ5YOjvPiWsw8jma60YdX40D3LsvkoUJl6uGsJ1kOeYJkoQ74bSyatZTAMVbshYZyydcozhnRszGeb6B2fSBK6t5Dlg_CvmFa680iCrG22dPH8cHr8zLbGqXD1azJpIxvAWE_Zr1-G0JtM8-8SerfYk-cNEMXbN7MFkj9tRMIB58uilC"/>
+                </div>
+
+                <div class="col-span-12 md:col-span-8 bg-surface-container-lowest p-12 flex flex-col justify-center">
+                    <h2 class="font-headline text-3xl font-bold mb-6 tracking-tight">GIẢI PHẪU THỦ CÔNG.</h2>
+                    <p class="text-on-surface-variant leading-relaxed max-w-xl">
+                        Mỗi kiểu dáng đều bắt đầu từ một khuôn đất sét nặn bằng tay. Chúng tôi từ chối các đường tắt của sản xuất hàng loạt, lựa chọn quy trình tạo phom kéo dài 48 giờ để đảm bảo da giày ôm trọn hoàn hảo theo đường nét tự nhiên của bàn chân.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Note -->
+    <section class="py-40 px-8 bg-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+            <div class="relative">
+                <img class="w-full grayscale" data-alt="Portrait of designer"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_onGiiNnNL5qJBRNDtJ2E--po-Csrw76Cre6ENMHG-EUkoDz1oTIqE5tiWqRS3v00a147ka-laVSZXPocLguTWwOsp_-3YWH04LkPZEQLV6UBrqpa4pKRlFJa42g_Th1ONZbJ3BFGePomwTWuGOzLUW54VaBKOpLXj0WqxokGFP4-shaz6wSg38ic8RCcCvvJxn2Gcj9swk-XdIa0Cuhf-yYtd3bvAqP3StAuRn4NQnY6lIcLYNQisTvEZqBELlKtybae2Hgr70hV"/>
+                <div class="absolute -bottom-8 -right-8 bg-primary p-8 text-on-primary hidden md:block">
+                    <span class="font-headline text-lg italic">"Thiết kế là vị đại sứ thầm lặng cho thương hiệu của bạn."</span>
+                </div>
+            </div>
+
+            <div class="pt-8 md:pt-20">
+                <span class="font-label uppercase tracking-[0.2em] text-[11px] font-bold text-outline mb-4 block">Ghi chú từ nhà sáng lập</span>
+                <h2 class="font-headline text-4xl font-extrabold mb-10 leading-tight">HÀNH TRÌNH TÌM KIẾM SỰ BỀN VỮNG.</h2>
+
+                <div class="space-y-6 text-lg text-on-surface/80 leading-relaxed font-light">
+                    <p>
+                        GALLERY_FOOTWEAR ra đời từ nỗi thất vọng với bản chất dễ dãi, dùng một lần của thời trang hiện đại. Tôi muốn tạo ra một thứ gì đó có sức nặng—cả về mặt vật lý lẫn văn hóa.
+                    </p>
+                    <p>
+                        Triết lý của chúng tôi bắt nguồn từ 'Sự trường tồn sắc thái'. Chúng tôi không chạy theo xu hướng; chúng tôi xây dựng những giá trị cốt lõi. Mỗi đường kim mũi chỉ là một lời cam kết với người sẽ đi đôi giày này trong một thập kỷ, chứ không chỉ một mùa.
+                    </p>
+                    <p class="font-bold text-primary mt-12">
+                        — Marcus Vane, Giám đốc Sáng tạo
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values & Sustainability -->
+    <section class="bg-primary text-on-primary py-32 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                <h2 class="font-headline text-5xl font-bold tracking-tighter">TRIẾT LÝ CỦA CHÚNG TÔI.</h2>
+                <p class="max-w-md text-on-primary/60 font-body text-sm uppercase tracking-widest">
+                    Cam kết về sự minh bạch triệt để và cân bằng môi trường.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10">
+                <div class="py-16 md:pr-12 border-b md:border-b-0 md:border-r border-white/10">
+                    <span class="text-4xl font-extrabold text-white/20 mb-8 block">01</span>
+                    <h3 class="font-headline text-xl font-bold mb-4 uppercase tracking-widest">Nguồn gốc tuần hoàn</h3>
+                    <p class="text-on-primary/70 leading-relaxed">
+                        94% vật liệu của chúng tôi được cung ứng trong bán kính 200km quanh xưởng thiết kế, giúp giảm đáng kể dấu chân carbon trước cả khi nhát cắt đầu tiên được thực hiện.
+                    </p>
+                </div>
+
+                <div class="py-16 md:px-12 border-b md:border-b-0 md:border-r border-white/10">
+                    <span class="text-4xl font-extrabold text-white/20 mb-8 block">02</span>
+                    <h3 class="font-headline text-xl font-bold mb-4 uppercase tracking-widest">Lao động đạo đức</h3>
+                    <p class="text-on-primary/70 leading-relaxed">
+                        Mọi nghệ nhân trong tập thể của chúng tôi đều nhận được mức lương đủ sống, cao hơn 40% so với tiêu chuẩn khu vực, đảm bảo nghề thủ công luôn là một sự nghiệp bền vững và đáng tôn trọng.
+                    </p>
+                </div>
+
+                <div class="py-16 md:pl-12">
+                    <span class="text-4xl font-extrabold text-white/20 mb-8 block">03</span>
+                    <h3 class="font-headline text-xl font-bold mb-4 uppercase tracking-widest">Cắt giảm không rác thải</h3>
+                    <p class="text-on-primary/70 leading-relaxed">
+                        Thuật toán sắp xếp độc quyền của chúng tôi đảm bảo tận dụng 98% diện tích da. Những mẩu da thừa sẽ được tái chế thành dòng phụ kiện 'Archive' của chúng tôi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer (đồng bộ kiểu index) -->
+<footer class="bg-neutral-50 py-20 px-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-2">
+            <div class="text-lg font-black tracking-widest mb-6">GALLERY_FOOTWEAR</div>
+            <p class="text-neutral-500 max-w-sm font-['Inter'] text-[13px] tracking-wide leading-relaxed">
+                Một trải nghiệm không gian số dành riêng cho việc tuyển chọn và sáng tạo những mẫu giày kiến trúc cao cấp.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="font-headline text-[12px] font-bold uppercase tracking-[0.2em] mb-6">Điều hướng</h4>
+            <ul class="space-y-3 font-['Inter'] text-[13px] tracking-wide text-neutral-600">
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bản tin</a></li>
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Instagram</a></li>
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bảo mật</a></li>
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Điều khoản</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-headline text-[12px] font-bold uppercase tracking-[0.2em] mb-6">Kết nối</h4>
+            <ul class="space-y-3 font-['Inter'] text-[13px] tracking-wide text-neutral-600">
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Hỗ trợ</a></li>
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Bán sỉ</a></li>
+                <li><a class="hover:underline decoration-1 underline-offset-4 transition-all" href="#">Twitter</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-neutral-200">
+        <p class="text-[11px] font-medium tracking-widest text-neutral-400 uppercase">
+            © 2024 THE DIGITAL GALLERY. BẢO LƯU MỌI QUYỀN.
+        </p>
+    </div>
+</footer>
+
+</body></html>
