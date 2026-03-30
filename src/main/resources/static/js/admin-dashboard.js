@@ -109,7 +109,7 @@ createMiniChart('miniChart4', [80, 92, 87, 105, 98, 110, 103, 120, 115, 128],   
             labels: labels,
             datasets: [
                 {
-                    label: 'Laptop',
+                    label: 'Sneakers',
                     data: laptopData,
                     borderColor: '#4e73df',
                     backgroundColor: gradientLaptop,
@@ -123,7 +123,7 @@ createMiniChart('miniChart4', [80, 92, 87, 105, 98, 110, 103, 120, 115, 128],   
                     pointHoverRadius: 6
                 },
                 {
-                    label: 'Điện thoại',
+                    label: 'Running',
                     data: phoneData,
                     borderColor: '#1cc88a',
                     backgroundColor: gradientPhone,
