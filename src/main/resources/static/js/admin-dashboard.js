@@ -90,13 +90,13 @@ createMiniChart('miniChart4', [80, 92, 87, 105, 98, 110, 103, 120, 115, 128],   
 (function () {
     const ctx = document.getElementById('lineChart').getContext('2d');
 
-    const gradientLaptop = ctx.createLinearGradient(0, 0, 0, 280);
-    gradientLaptop.addColorStop(0, 'rgba(78,115,223,0.25)');
-    gradientLaptop.addColorStop(1, 'rgba(78,115,223,0)');
+    const gradientSneakers = ctx.createLinearGradient(0, 0, 0, 280);
+    gradientSneakers.addColorStop(0, 'rgba(78,115,223,0.25)');
+    gradientSneakers.addColorStop(1, 'rgba(78,115,223,0)');
 
-    const gradientPhone = ctx.createLinearGradient(0, 0, 0, 280);
-    gradientPhone.addColorStop(0, 'rgba(28,200,138,0.25)');
-    gradientPhone.addColorStop(1, 'rgba(28,200,138,0)');
+    const gradientRunning = ctx.createLinearGradient(0, 0, 0, 280);
+    gradientRunning.addColorStop(0, 'rgba(28,200,138,0.25)');
+    gradientRunning.addColorStop(1, 'rgba(28,200,138,0)');
 
     // Dữ liệu 12 tháng (T4/2025 → T3/2026)
     const labels     = ['T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T1', 'T2', 'T3'];
@@ -109,7 +109,7 @@ createMiniChart('miniChart4', [80, 92, 87, 105, 98, 110, 103, 120, 115, 128],   
             labels: labels,
             datasets: [
                 {
-                    label: 'Laptop',
+                    label: 'Sneakers',
                     data: laptopData,
                     borderColor: '#4e73df',
                     backgroundColor: gradientLaptop,
@@ -123,7 +123,7 @@ createMiniChart('miniChart4', [80, 92, 87, 105, 98, 110, 103, 120, 115, 128],   
                     pointHoverRadius: 6
                 },
                 {
-                    label: 'Điện thoại',
+                    label: 'Running',
                     data: phoneData,
                     borderColor: '#1cc88a',
                     backgroundColor: gradientPhone,

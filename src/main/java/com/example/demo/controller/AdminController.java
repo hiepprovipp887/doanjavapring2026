@@ -103,23 +103,23 @@ public class AdminController {
         return "admin/product-list";
     }
 
-    @GetMapping("/admin/products/laptops")
-    public String listLaptops(Model model) {
-        List<Product> laptops = productService.getAllProducts().stream()
-                .filter(p -> p.getCategory() != null && "Laptop".equals(p.getCategory().getName()))
+    @GetMapping("/admin/products/sneakers")
+    public String listSneakers(Model model) {
+        List<Product> sneakers = productService.getAllProducts().stream()
+                .filter(p -> p.getCategory() != null && "Sneakers".equals(p.getCategory().getName()))
                 .toList();
-        model.addAttribute("title", "Quản lý Laptop");
-        model.addAttribute("products", laptops);
+        model.addAttribute("title", "Quản lý Sneakers");
+        model.addAttribute("products", sneakers);
         return "admin/product-list";
     }
 
-    @GetMapping("/admin/products/phones")
-    public String listPhones(Model model) {
-        List<Product> phones = productService.getAllProducts().stream()
-                .filter(p -> p.getCategory() != null && "Điện thoại".equals(p.getCategory().getName()))
+    @GetMapping("/admin/products/running")
+    public String listRunning(Model model) {
+        List<Product> running = productService.getAllProducts().stream()
+                .filter(p -> p.getCategory() != null && "Running".equals(p.getCategory().getName()))
                 .toList();
-        model.addAttribute("title", "Quản lý Điện thoại");
-        model.addAttribute("products", phones);
+        model.addAttribute("title", "Quản lý Running");
+        model.addAttribute("products", running);
         return "admin/product-list";
     }
 
@@ -179,11 +179,11 @@ public class AdminController {
         model.addAttribute("totalUsers", userRepository.count());
 
         // Thống kê theo loại (Check null cẩn thận)
-        Double laptopRev = orderRepository.getRevenueByCategory("Laptop");
-        model.addAttribute("laptopRev", (laptopRev != null) ? laptopRev : 0.0);
+        Double sneakersRev = orderRepository.getRevenueByCategory("Sneakers");
+        model.addAttribute("sneakersRev", (sneakersRev != null) ? sneakersRev : 0.0);
 
-        Double phoneRev = orderRepository.getRevenueByCategory("Điện thoại");
-        model.addAttribute("phoneRev", (phoneRev != null) ? phoneRev : 0.0);
+        Double runningRev = orderRepository.getRevenueByCategory("Running");
+        model.addAttribute("runningRev", (runningRev != null) ? runningRev : 0.0);
 
         // Mảng doanh thu 12 tháng
         double[] monthlyRevenue = new double[12];
